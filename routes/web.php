@@ -23,4 +23,5 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/days', 'DayController@index')->name('days');
 	Route::post('/days', 'DayController@store')->name('days.store');
 	Route::delete('/days/destroy/{id}', 'DayController@destroy')->name('days.destroy');
+	Route::get('/days/{id}', 'DayController@show');
 });

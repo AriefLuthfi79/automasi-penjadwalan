@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Day;
+use Response;
 use App\Repositories\DayRepository;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,7 @@ class DayController extends Controller
 	{
 		$title = "All Days";
 		$days = $this->repository->getAll();
-
+		// dd(Response::json($days));
 		return view('days.index', compact('title', 'days'));
 	}
 
@@ -68,6 +69,14 @@ class DayController extends Controller
 			return redirect()->back()->with('danger', 'Record succesfully deleted');
 		} catch (Exception $e) {
 			return redirect()->back()->with('error', $e->getMessage());
+		}
+	}
+
+	public function show(Request $request, $id)
+	{
+		if ($request->ajax()) {
+			$day = $this->repository->detail($id);
+			return Response::json($day);
 		}
 	}
 }
