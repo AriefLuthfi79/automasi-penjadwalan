@@ -76,7 +76,17 @@ class AreaController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+       try {
+            $data = [
+                "code_area" => $request->code_area,
+                "name"      => $request->name,
+                "capacity"  => $request->capacity
+            ];
+            $this->repository->updateData($data, $id);
+            return redirect()->back()->with('success', "Record successfully updated");
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        } 
     }
 
     /**
