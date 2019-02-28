@@ -13,5 +13,10 @@ class Student extends Model
 	*/
 	protected $table = 'students';
 
+	/**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
 	protected $guarded = [];
 }

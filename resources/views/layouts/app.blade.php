@@ -7,12 +7,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') | Penjadwalan</title>
 
     <!-- Scripts -->
     @include('partials.scripts')
     @yield('scripts')
-    
+
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
@@ -34,7 +34,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @if (Auth::user())
-                            <li class="nav-item"><a class="nav-link" href="#">Area</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('areas') }}">Area</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">Student</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ route('days') }}">Day</a></li>
                         @endif

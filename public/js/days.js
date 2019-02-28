@@ -4,7 +4,7 @@ var Days = {
 	},
 
 	registerEventListeners: function () {
-		$(document).on('click', '.update-user', function(e) {
+		$(document).on('click', '.update-day', function(e) {
 			e.preventDefault();
 			var id = $(this).data('id');
 			Days.populateEditFields(id);
@@ -19,7 +19,7 @@ var Days = {
 				$form = $(document).find('#day-update-form');
 				$form.find('[name=code_day]').val(response.code_day);
 				$form.find('[name=name]').val(response.name);
-				$form.attr('action', 'days/' + id);
+				$form.attr('action', 'days/update/' + id);
 
 				$('#editModal').modal('show');
 			}

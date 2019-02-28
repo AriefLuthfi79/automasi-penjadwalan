@@ -2,17 +2,27 @@
 
 namespace App\Repositories;
 
-use App\Day;
+use App\Area;
+use App\Repositories\RepositoryInterface;
 
-class DayRepository implements RepositoryInterface
+/**
+ * AreaRepository class
+ */
+class AreaRepository implements RepositoryInterface
 {
 	/**
-	* Representing the model
+	* Representing model
+	*
 	* @var object
 	*/
 	private $model;
 
-	public function __construct(Day $model)
+	/**
+	* Injecting Model to this repository class
+	*
+	* @param object 
+	*/
+	public function __construct(Area $model)
 	{
 		$this->model = $model;
 	}
@@ -42,6 +52,7 @@ class DayRepository implements RepositoryInterface
 	* Store the data to database
 	*
 	* @param $attributes array
+	* @return boolean
 	*/
 	public function create(array $attributes)
 	{
@@ -51,7 +62,7 @@ class DayRepository implements RepositoryInterface
 	/**
 	* Override abstract method destroy to destroy data
 	* 
-	* @param $id integer
+	* @param $id string
 	*/
 	public function destroy($id)
 	{
@@ -63,8 +74,8 @@ class DayRepository implements RepositoryInterface
 	*
 	* @param $id
 	*/
-	public function updateData(array $data, $id)
+	public function updateData(array $attributes, $id)
 	{
-		return $this->model->where('id', $id)->update($data);
+		return $this->model->where('id', $id)->update($attributes);
 	}
 }

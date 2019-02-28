@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Day;
 use Response;
 use App\Repositories\DayRepository;
 use Illuminate\Http\Request;
@@ -11,6 +10,7 @@ class DayController extends Controller
 {
 	/**
 	* Representing repository
+	*
 	* @var object $repository 
 	*/
 	private $repository;
@@ -35,7 +35,6 @@ class DayController extends Controller
 	{
 		$title = "All Days";
 		$days = $this->repository->getAll();
-		// dd(Response::json($days));
 		return view('days.index', compact('title', 'days'));
 	}
 
@@ -72,11 +71,31 @@ class DayController extends Controller
 		}
 	}
 
+	/**
+	* Get the data if request ajax
+	*
+	* @param integer $id, Illuminate\Http\Request $request
+	* @return json
+	*/
 	public function show(Request $request, $id)
 	{
 		if ($request->ajax()) {
 			$day = $this->repository->detail($id);
 			return Response::json($day);
+		}
+	}
+
+	public function update(Request $request, $id)
+	{
+		try {
+			$data = [
+				"code_day" => $request->input('code_day'),
+				"name" => $request->input('name')
+			];
+			$this->repository->updateData($data, $id);
+			return redirect()->back()->with('success', "Record succesfully updated");
+		} catch (Exception $e) {
+			return redirect()->back()->with('error', $e->getMessage());
 		}
 	}
 }

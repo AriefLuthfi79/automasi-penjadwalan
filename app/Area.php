@@ -13,5 +13,10 @@ class Area extends Model
 	*/
     protected $table = 'areas';
 
-    protected $fillable = ['code_area', 'name'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['code_area', 'name', 'capacity'];
 }

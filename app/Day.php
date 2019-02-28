@@ -13,5 +13,10 @@ class Day extends Model
 	*/
     protected $table = 'days';
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = ['code_day', 'name'];
 }

@@ -22,6 +22,13 @@ Route::group(['middleware' => 'auth'], function () {
 	// Route Day Controller
 	Route::get('/days', 'DayController@index')->name('days');
 	Route::post('/days', 'DayController@store')->name('days.store');
-	Route::delete('/days/destroy/{id}', 'DayController@destroy')->name('days.destroy');
+	Route::get('/days/destroy/{id}', 'DayController@destroy')->name('days.destroy');
 	Route::get('/days/{id}', 'DayController@show');
+	Route::post('/days/update/{id}', 'DayController@update');
+
+	// Route Area Controller
+	Route::get('/areas', 'AreaController@index')->name('areas');
+	Route::post('/areas', 'AreaController@store')->name('areas.store');
+	Route::get('/areas/destroy/{id}', 'AreaController@destroy')->name('areas.destroy');
+	Route::get('/areas/{id}', 'AreaController@show');
 });

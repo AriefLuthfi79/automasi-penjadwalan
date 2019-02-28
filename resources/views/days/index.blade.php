@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+	Day
+@endsection
+
 @section('content')
 	<div class="container">
 		<div class="row justify-content-center">
@@ -31,16 +35,12 @@
 										<td>{{ $day->code_day }}</td>
 										<td>{{ $day->name }}</td>
 										<td>
-											<button class="btn btn-link update-user" data-toggle="modal" data-id="{{ $day->id }}">
+											<button class="btn btn-link update-day" data-toggle="modal" data-id="{{ $day->id }}">
 												<i class="fa fa-pencil"></i> Edit
-											</button>
-											<form action="{{ route('days.destroy', $day->id) }}" method="POST">
-												{{ csrf_field() }}
-												{{ method_field('DELETE') }}
-												<button class="btn btn-link">
-													<i class="fa fa-trash"></i> Delete
-												</button>
-											</form>
+											</button> | 
+											<a class="btn btn-link" href="{{ route('days.destroy', $day->id) }}">
+												<i class="fa fa-trash"></i> Delete
+											</a>
 										</td>
 									</tr>
 								@endforeach
