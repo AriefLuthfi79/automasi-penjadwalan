@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Response;
+use App\Http\Requests\AreaStoreRequest;
 use App\Repositories\AreaRepository;
 use Illuminate\Http\Request;
 
@@ -43,10 +44,10 @@ class AreaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AreaStoreRequest $request)
     {
         try {
-            $this->repository->create($request->all());
+            $request->save($this->repository);
             return redirect()->back()->with('success', 'Record successfully created');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());

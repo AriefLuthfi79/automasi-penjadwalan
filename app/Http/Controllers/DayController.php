@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Response;
-use App\Repositories\DayRepository;
 use Illuminate\Http\Request;
+use App\Http\Requests\DayStoreRequest;
+use App\Repositories\DayRepository;
 
 class DayController extends Controller
 {
@@ -44,11 +45,10 @@ class DayController extends Controller
 	* @param Illuminate\Http\Request
 	* @return view
 	*/
-	public function store(Request $request)
+	public function store(DayStoreRequest $request)
 	{
-
 		try {
-			$this->repository->create($request->all());
+			$request->save($this->repository);
 			return redirect()->back()->with('success', 'Record succesfully created');
 		} catch (\Exception $e) {
 			return redirect()->back()->with('error', $e->getMessage());

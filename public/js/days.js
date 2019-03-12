@@ -1,9 +1,9 @@
 var Days = {
-	Init: function () {
+	Init: function() {
 		Days.registerEventListeners();
 	},
 
-	registerEventListeners: function () {
+	registerEventListeners: function() {
 		$(document).on('click', '.update-day', function(e) {
 			e.preventDefault();
 			var id = $(this).data('id');
