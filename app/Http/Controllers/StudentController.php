@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Response;
 use Illuminate\Http\Request;
-use App\Repositories\AreaRepository;
-use App\Http\Requests\AreaStoreRequest;
+use App\Repositories\StudentRepository;
 
-class AreaController extends Controller
+class StudentController extends Controller
 {
     /**
     * Representing repository
@@ -20,8 +19,8 @@ class AreaController extends Controller
     * Injecting Repository to construct
     *
     * @param App\Repositories\AreaRepository
-    */
-    public function __construct(AreaRepository $repository)
+    */    
+    public function __construct(StudentRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -33,9 +32,9 @@ class AreaController extends Controller
      */
     public function index()
     {
-        $title = "All Area Picket";
-        $areas = $this->repository->getAll();
-        return view('areas.index', compact('title', 'areas'));
+        $title = "All Students";
+        $students = $this->repository->getAll();
+        return view('students.index', compact('title', 'students'));   
     }
 
     /**
@@ -44,13 +43,13 @@ class AreaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AreaStoreRequest $request)
+    public function store(Request $request)
     {
         try {
-            $request->save($this->repository);
+            $this->repository->create($request->all());
             return redirect()->back()->with('success', 'Record successfully created');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->back()->with('error', $e->getMessages());
         }
     }
 
@@ -62,10 +61,15 @@ class AreaController extends Controller
      */
     public function show(Request $request, $id)
     {
-        if ($request->ajax()) {
-            $area = $this->repository->detail($id);
-            return Response::json($area);
+        $student = $this->repository->detail($id);
+        if (!$request->ajax()) {
+            if (!$student) {
+                return response()->json(['message' => 'Record not found'], 404);
+            }
+            return response()->json(['message' => 'Bad Request'], 400);
         }
+
+        return Response::json($student);
     }
 
     /**
@@ -77,17 +81,17 @@ class AreaController extends Controller
      */
     public function update(Request $request, $id)
     {
-       try {
+        try {
             $data = [
-                "code_area" => $request->code_area,
-                "name"      => $request->name,
-                "capacity"  => $request->capacity
+                "name" => $request->name,
+                "divisi" => $request->divisi,
+                "surname" => $request->surname
             ];
             $this->repository->updateData($data, $id);
-            return redirect()->back()->with('success', "Record successfully updated");
-        } catch (Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
-        } 
+            return redirect()->back()->with('success', 'Record successfully updated');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessages());
+        }
     }
 
     /**
@@ -100,9 +104,9 @@ class AreaController extends Controller
     {
         try {
             $this->repository->destroy($id);
-            return redirect()->back()->with('success', 'Record successfully created');
+            return redirect()->back()->with('danger', 'Record successfully deleted');
         } catch (Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->back()->with('error', $e->getMessages());
         }
     }
 }

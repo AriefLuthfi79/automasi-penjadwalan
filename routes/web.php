@@ -34,4 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/areas/update/{id}', 'AreaController@update');
 
 	// Route Student Controller
+	Route::get('/students', 'StudentController@index')->name('students');
+	Route::post('/students', 'StudentController@store')->name('students.store');
+	Route::get('/students/destroy/{id}', 'StudentController@destroy')->name('students.destroy');
+	Route::get('/students/{id}', 'StudentController@show');
+	Route::post('/students/update/{id}', 'StudentController@update');
 });

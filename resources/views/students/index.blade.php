@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-	Day
+	Student
 @endsection
 
 @section('content')
@@ -18,27 +18,29 @@
 					</div>
 
 					<div class="card-body">
-						@if (count($days))
+						@if (count($students))
 							<table class="table table-striped">
 								<thead>
 									<tr>
 										<th scope="col">#</th>
-										<th scope="col">Code</th>
 										<th scope="col">Name</th>
+										<th scope="col">Divisi</th>
+										<th scope="col">Surname</th>
 										<th scope="col">Action</th>
 									</tr>
 								</thead>
 								<tbody>
-								@foreach($days as $day)
+								@foreach($students as $student)
 									<tr scope="row">
 										<td>{{ $loop->iteration }}</td>
-										<td>{{ $day->code_day }}</td>
-										<td>{{ $day->name }}</td>
+										<td>{{ $student->name }}</td>
+										<td>{{ $student->divisi }}</td>
+										<td>{{ $student->surname }}</td>
 										<td>
-											<button class="btn btn-link update-day" data-toggle="modal" data-id="{{ $day->id }}">
+											<button class="btn btn-link update-student" data-toggle="modal" data-id="{{ $student->id }}">
 												<i class="fa fa-pencil"></i> Edit
-											</button> | 
-											<a class="btn btn-link" href="{{ route('days.destroy', $day->id) }}">
+											</button> |
+											<a class="btn btn-link" href="{{ route('students.destroy', $student->id) }}">
 												<i class="fa fa-trash"></i> Delete
 											</a>
 										</td>
@@ -47,20 +49,21 @@
 								</tbody>
 							</table>
 						@else
-							<p class="text-center text-danger">No days available</p>
+							<p class="text-center text-danger">No student available</p>
 						@endif
 					</div>
 				</div>
 			</div>
 
-			<!-- Modal -->
-			@include('days.modal')
-			<!-- End Modal -->
+			{{-- Modal --}}
 
+			@include('students.modal')
+			
+			{{-- End Modal --}}
 		</div>
 	</div>
 @endsection
 
 @section('scripts')
-	<script src="{{ asset('js/days.js') }}" defer></script>
+	<script src="{{ asset('js/students.js') }}" defer></script>
 @endsection

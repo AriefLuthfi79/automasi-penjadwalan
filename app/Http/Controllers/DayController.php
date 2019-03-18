@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Response;
 use Illuminate\Http\Request;
-use App\Http\Requests\DayStoreRequest;
 use App\Repositories\DayRepository;
+use App\Http\Requests\DayStoreRequest;
 
 class DayController extends Controller
 {

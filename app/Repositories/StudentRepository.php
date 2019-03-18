@@ -2,24 +2,24 @@
 
 namespace App\Repositories;
 
-use App\Day;
+use App\Student;
 use App\Repositories\RepositoryInterface;
 
-class DayRepository implements RepositoryInterface
+class StudentRepository implements RepositoryInterface
 {
 	/**
-	* Representing the model
+	* Representing model
+	*
 	* @var object
 	*/
 	private $model;
 
-
 	/**
-	* Injecting model day to construct
+	* Injecting model to this class's construct
 	*
-	* @param $model
+	* @param model
 	*/
-	public function __construct(Day $model)
+	public function __construct(Student $model)
 	{
 		$this->model = $model;
 	}
@@ -35,10 +35,10 @@ class DayRepository implements RepositoryInterface
 	}
 
 	/**
-	* Override method detail to get data from model
+	* Override method detail to get data from id
 	*
-	* @param integer $id
-	* @return Collection
+	* @param string $id
+	* @return Collection 
 	*/
 	public function detail($id)
 	{
@@ -49,6 +49,7 @@ class DayRepository implements RepositoryInterface
 	* Store the data to database
 	*
 	* @param $attributes array
+	* @return boolean
 	*/
 	public function create(array $attributes)
 	{
@@ -58,7 +59,7 @@ class DayRepository implements RepositoryInterface
 	/**
 	* Override abstract method destroy to destroy data
 	* 
-	* @param $id integer
+	* @param $id string
 	*/
 	public function destroy($id)
 	{
@@ -68,10 +69,10 @@ class DayRepository implements RepositoryInterface
 	/**
 	* Override method update to update data from model
 	*
-	* @param $id
+	* @param int $id
 	*/
-	public function updateData(array $data, $id)
+	public function updateData(array $attributes, $id)
 	{
-		return $this->model->where('id', $id)->update($data);
+		return $this->model->findOrFail($id)->update($attributes);
 	}
 }

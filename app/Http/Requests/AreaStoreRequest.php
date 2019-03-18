@@ -25,7 +25,8 @@ class AreaStoreRequest extends BaseFormRequest
     {
         return [
             'code_area' => 'required|unique:areas',
-            'name'      => 'required|string|max:20'
+            'name'      => 'required|string|max:20',
+            'capacity'  => 'required'
         ];
     }
 
