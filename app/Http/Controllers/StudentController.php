@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Response;
 use Illuminate\Http\Request;
 use App\Repositories\StudentRepository;
+use App\Http\Requests\StudentStoreRequest;
 
 class StudentController extends Controller
 {
@@ -43,13 +44,13 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudentStoreRequest $request)
     {
         try {
             $this->repository->create($request->all());
             return redirect()->back()->with('success', 'Record successfully created');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessages());
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -90,7 +91,7 @@ class StudentController extends Controller
             $this->repository->updateData($data, $id);
             return redirect()->back()->with('success', 'Record successfully updated');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessages());
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -106,7 +107,7 @@ class StudentController extends Controller
             $this->repository->destroy($id);
             return redirect()->back()->with('danger', 'Record successfully deleted');
         } catch (Exception $e) {
-            return redirect()->back()->with('error', $e->getMessages());
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 }

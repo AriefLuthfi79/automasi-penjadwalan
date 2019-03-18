@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DayStoreRequest extends BaseFormRequest
+class StudentStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,29 +24,31 @@ class DayStoreRequest extends BaseFormRequest
     public function rules()
     {
         return [
-            'code_day' => 'required|unique:days',
-            'name' => 'required|string|max:20'
+            'name'    => 'required|string',
+            'divisi'  => 'required|string|max:20',
+            'surname' => 'required|string|max:20'
         ];
     }
 
     /**
-    * Return flash messages if not validate
+    * Return flash messsages if not validate
     *
     * @return array
     */
     public function messages()
     {
         return [
-            'code_day.required' => 'Code day must required!',
-            'name.required' => 'Name must required!',
+            'name.required' => 'Name cannot be blank!',
+            'divisi.required' => 'Divisi cannot be blank!',
+            'surname.required' => 'Surname cannot be blank!'
         ];
     }
 
     /**
     * Save data to database
     *
-    * @param $object
-    * @return \App\Days
+    * @param object
+    * @return boolean
     */
     public function save($object)
     {
