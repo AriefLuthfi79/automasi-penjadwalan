@@ -78,4 +78,14 @@ class AreaRepository implements RepositoryInterface
 	{
 		return $this->model->where('id', $id)->update($attributes);
 	}
+
+	/**
+	* Override method getPaginated
+	*
+	* @param int $count = 15
+	*/
+	public function getPaginated($count = 15)
+	{
+		return $this->model->paginate($count);
+	}
 }

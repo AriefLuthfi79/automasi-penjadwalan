@@ -33,4 +33,11 @@ interface RepositoryInterface
 	* @param $id integer
 	*/
 	public function updateData(array $attributes, $id);
+
+	/**
+	* Get pagination
+	*
+	* @param $count
+	*/
+	public function getPaginated(int $count);
 }

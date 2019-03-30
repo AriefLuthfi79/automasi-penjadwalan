@@ -46,6 +46,8 @@
 										</td>
 									</tr>
 								@endforeach
+
+								{{ $students->links() }}
 								</tbody>
 							</table>
 						@else

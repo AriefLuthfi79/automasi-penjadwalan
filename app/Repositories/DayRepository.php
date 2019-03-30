@@ -74,4 +74,14 @@ class DayRepository implements RepositoryInterface
 	{
 		return $this->model->where('id', $id)->update($data);
 	}
+
+	/**
+	* Override method getPaginated
+	*
+	* @param int $count = 15
+	*/
+	public function getPaginated($count = 15)
+	{
+		return $this->model->paginate($count);
+	}
 }

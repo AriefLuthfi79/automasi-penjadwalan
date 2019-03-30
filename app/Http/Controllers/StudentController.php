@@ -34,7 +34,7 @@ class StudentController extends Controller
     public function index()
     {
         $title = "All Students";
-        $students = $this->repository->getAll();
+        $students = $this->repository->getPaginated(10);
         return view('students.index', compact('title', 'students'));   
     }
 
